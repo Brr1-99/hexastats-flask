@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from getData import getData
+from lib.getData import getData
 import json
 
 app = Flask(__name__)
