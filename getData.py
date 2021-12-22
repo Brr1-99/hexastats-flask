@@ -45,14 +45,14 @@ def getData(players_get):
 			if len(rank) >= 15:
 				rank = 'Unranked'
 			
-			table = document2.find_all(class_='FullContent')
-			print(table)
+			champs_more_data = document2.find_all(class_='Row TopRanker')
+		
 
 			champs = []
 		
 			# Fetch champions data
 			champs_data = document.find_all(class_='ChampionBox Ranked')
-			for champ_data in champs_data:
+			for index,champ_data in enumerate(champs_data):
 				name_champ = champ_data.find(class_='Face')['title']
 				image_champ = 'https:' + str(champ_data.find('img')['src'])
 				games = int(champ_data.find(class_='Played').findChildren('div')[-1].string.split(' ')[0])
@@ -63,7 +63,16 @@ def getData(players_get):
 				assists = float(champ_data.find(class_='KDAEach').findChildren('span')[4].string)
 				cs = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split(' ')[1])
 				csmedian = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
-				champs.append(buildChamp(name=name_champ, image=image_champ, games=games, winrate=winrate, kda=kda, kills=kills, deaths=deaths, assists=assists, cs=cs, csmedian=csmedian))
+				cells = champs_more_data[index].find_all(class_='Value Cell')
+				gold = int(cells[0].string.split('\t')[5][:-1].replace(',',''))
+				max_kills = int(cells[2].string.split('\t')[6][:-1])
+				max_deaths = int(cells[3].string.split('\t')[6][:-1])
+				avg_damage_dealt = int(cells[4].string.split('\t')[6][:-1].replace(',',''))
+				avg_damage_taken = int(cells[5].string.split('\t')[6][:-1].replace(',',''))
+
+				champs.append(buildChamp(name=name_champ, image=image_champ, games=games, winrate=winrate,
+				 kda=kda, kills=kills, deaths=deaths, assists=assists, cs=cs, csmedian=csmedian, gold=gold,
+				  max_kills=max_kills, max_deaths=max_deaths, avg_damage_dealt=avg_damage_dealt, avg_damage_taken=avg_damage_taken))
 
 			# Append data to data object
 			data.append(buildPlayer(name=name, alias=alias, image=image, rank=rank, champs=champs))

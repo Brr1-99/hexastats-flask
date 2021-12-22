@@ -4,7 +4,7 @@
 
 
 # Function to create the champ data
-def buildChamp(name, image, games, winrate, kda, kills, deaths, assists, cs, csmedian):
+def buildChamp(name, image, games, winrate, kda, kills, deaths, assists, cs, csmedian, gold, max_kills, max_deaths, avg_damage_dealt, avg_damage_taken):
 	return {
 		'name': name,
 		'image': image,
@@ -16,6 +16,11 @@ def buildChamp(name, image, games, winrate, kda, kills, deaths, assists, cs, csm
 		'assists': assists,
 		'cs': cs,
 		'csmedian': csmedian,
+		'gold': gold,
+		'max_kills': max_kills,
+		'max_deaths': max_deaths,
+		'avg_damage_dealt': avg_damage_dealt,
+		'avg_damage_taken' : avg_damage_taken
 	}
 
 
