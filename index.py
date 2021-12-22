@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request
-from getData import getData
-import json
+from flask import Flask, request
+from lib.getData import getData
 
 app = Flask(__name__)
 
@@ -14,5 +13,4 @@ def home():
     except AttributeError:
         players = []
     gamers = getData(players)
-    # return render_template('home.html', data=gamers)
     return gamers
