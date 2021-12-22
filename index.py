@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     try:
-        # ?players=Bruno
+        #?players=Bruno
         players = request.args.get('players')
         players = players.split(',')
     except AttributeError:
