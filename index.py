@@ -1,5 +1,5 @@
 from flask import Flask, request
-from lib.getData import getData
+from getData import getData
 
 app = Flask(__name__)
 
