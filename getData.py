@@ -63,7 +63,9 @@ def getData(players_get):
 				assists = float(champ_data.find(class_='KDAEach').findChildren('span')[4].string)
 				cs = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split(' ')[1])
 				csmedian = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
+
 				cells = champs_more_data[index].find_all(class_='Value Cell')
+				
 				gold = int(cells[0].string.split('\t')[5][:-1].replace(',',''))
 				max_kills = int(cells[2].string.split('\t')[6][:-1])
 				max_deaths = int(cells[3].string.split('\t')[6][:-1])
