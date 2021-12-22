@@ -49,7 +49,9 @@ def getData(players_get):
 		
 
 			champs = []
-		
+			
+			# TODO: rango global , % mejores jugadores  
+
 			# Fetch champions data
 			champs_data = document.find_all(class_='ChampionBox Ranked')
 			for index,champ_data in enumerate(champs_data):
@@ -66,6 +68,8 @@ def getData(players_get):
 
 				cells = champs_more_data[index].find_all(class_='Value Cell')
 				
+				# TODO: añadir cells multiples kills
+
 				gold = int(cells[0].string.split('\t')[5][:-1].replace(',',''))
 				max_kills = int(cells[2].string.split('\t')[6][:-1])
 				max_deaths = int(cells[3].string.split('\t')[6][:-1])
