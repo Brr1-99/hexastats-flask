@@ -14,7 +14,10 @@ headers.update({
 
 # Function to extract the data from the page to the dictionary
 def getData(players_get):
-
+	base_url = {
+		'home': "https://euw.op.gg/summoner/userName=",
+		'champions': "https://euw.op.gg/summoner/champions/userName="
+	}
 	# Data returned
 	data = []
 
@@ -24,9 +27,13 @@ def getData(players_get):
 		if player['name'] in players_get:
 			
 			# Fetch OPGG data for a player
-			opgg = "https://euw.op.gg/summoner/userName=" + player['alias']
+			opgg = base_url['home'] + player['alias']
 			result = requests.get(opgg, headers=headers).text
 			document = BeautifulSoup(result, 'html.parser')
+
+			champions = base_url['champions'] + player['alias']
+			result2 = requests.get(champions, headers=headers).text
+			document2 = BeautifulSoup(result2, 'html.parser')
 
 			# Fetch player data
 			name = player['name']
@@ -37,6 +44,9 @@ def getData(players_get):
 			# Exception for unranked players
 			if len(rank) >= 15:
 				rank = 'Unranked'
+			
+			table = document2.find_all(class_='FullContent')
+			print(table)
 
 			champs = []
 		
