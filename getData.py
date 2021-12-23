@@ -1,6 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from requests.models import LocationParseError
 from interfaces import buildChamp, buildPlayer
 from whitelist import realName
 	
@@ -48,18 +49,42 @@ def getData(players_get, singleMode):
 		image = 'https:' + document.find(class_='ProfileImage')['src']
 		level = int(document.find(class_='ProfileImage').find_next_sibling('span').text)
 
+		# Fetch solo/duo data 
+		image_s = 'https:' + document.find(class_='SummonerRatingMedium').findChildren('div')[0].findChild('img')['src']
+		rank_s = document.find(class_='TierRank').string
+
+		if len(rank_s) < 15:
+			lp_s = int(document.find(class_='TierInfo').findChildren('span')[0].text.split('\t')[4].split(' ')[0])
+			win_s = int(document.find(class_='wins').text[:-1])
+			lose_s = int(document.find(class_='losses').text[:-1])
+			winrate_s = int(document.find(class_='winratio').text.split(' ')[-1][:-1])
+		else:
+			lp_s = 0
+			win_s = 0
+			lose_s = 0
+			winrate_s = 0
+
+		image_f = 'https:' + document.find(class_='sub-tier').findChild('img')['src']
+		rank_f = document.find(class_='sub-tier__info').findChildren('div')[1].text.split('\t')[0].replace(' ','').split('\n')[1]
+
+		if rank_f != 'Unranked':
+			lp_f = int(document.find(class_='sub-tier__league-point').text.split('/')[0][:-2])
+			ratio_f = document.find(class_='sub-tier__league-point').text.split('/')[1].split(' ')
+			win_f = int(ratio_f[1][:-1])
+			lose_f = int(ratio_f[2][:-1])
+			winrate_f = int(document.find(class_='sub-tier__league-point').find_next_sibling('div').text.split('\n')[1].split(' ')[-1][:-1])
+		else:
+			lp_f = 0
+			win_f = 0
+			lose_f = 0
+			winrate_f = 0
+
 		try:
 			global_ranking = int(document.find(class_='ranking').string.replace(',',''))
 			percent_better_players = float(document.find(class_='LadderRank').findChild('a').text.split('\t')[6].split('(')[1].split('%')[0])
 		except AttributeError:
 			global_ranking = 0
 			percent_better_players = 0
-
-		rank = document.find(class_='TierRank').string
-
-		# Exception for unranked players
-		if len(rank) >= 15:
-			rank = 'Unranked'
 		
 		champs_more_data = document2.find_all(class_='Row TopRanker')
 	
@@ -100,7 +125,9 @@ def getData(players_get, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 
 		# Append data to data object
-		data.append(buildPlayer(name=name, alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
+		data.append(buildPlayer(name=name, alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
+		image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
+		image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs))
 	
 	if singleMode:
 		return json.dumps(data[0])

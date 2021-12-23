@@ -56,7 +56,16 @@ def buildPlayer(
 	level: int,
 	rank_n: int,
 	rank_p: int,
-	rank: str,
+	image_s : str,
+	lp_s : int,
+	win_s: int,
+	lose_s: int,
+	winrate_s: int,
+	image_f : str,
+	lp_f : int,
+	win_f: int,
+	lose_f: int,
+	winrate_f: int,
 	champs: dict
 	):
 	return {
@@ -64,8 +73,25 @@ def buildPlayer(
 		'alias': alias,
 		'image': image,
 		'level': level,
-		'rank_n': rank_n,
-		'rank_p': rank_p,
-		'rank': rank,
+		'rank':{
+			'rank_n': rank_n,
+			'rank_p': rank_p,
+			'solo':{
+				'image': image_s,
+				'lp': lp_s,
+				'win': win_s,
+				'lose': lose_s,
+				'winrate': winrate_s
+			},
+			'flex':{
+				'image': image_f,
+				'lp': lp_f,
+				'win': win_f,
+				'lose': lose_f,
+				'winrate': winrate_f
+			}
+
+		},
+		
 		'champs': champs,
 	}
