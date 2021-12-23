@@ -30,7 +30,9 @@ def getData(players_get):
 
 	# Players
 	for player in players_get:
-					
+		
+		# TODO try catch por si te pasan un jugador que no existe
+
 		# Fetch OPGG data for a player
 		opgg = base_url['home'] + player
 		result = requests.get(opgg, headers=headers).text
