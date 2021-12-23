@@ -102,6 +102,6 @@ def getData(players_get, singleMode):
 		data.append(buildPlayer(name=name, alias=alias, image=image, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
 	
 	if singleMode:
-		return json.dumps(data)
-	else:
 		return json.dumps(data[0])
+	else:
+		return json.dumps(data)

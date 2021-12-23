@@ -1,5 +1,6 @@
 from flask import Flask, request
 from getData import getData
+import json
 
 app = Flask(__name__)
 
@@ -22,11 +23,9 @@ def home():
 		players = players.split(',')
 
 		# There is 1 or multiple players?
-		singleMode = len(players == 1)
-
-		# Everything went ok: process the data
-		gamers = getData(players, singleMode)
-		return gamers
-
+		singleMode = len(players) == 1
 	except (AttributeError , IndexError , TypeError):
-		return []
+		return json.dumps([])
+	# Everything went ok: process the data
+	gamers = getData(players, singleMode)
+	return gamers
