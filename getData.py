@@ -77,7 +77,7 @@ def getData(players_get, singleMode):
 			deaths = float(champ_data.find(class_='KDAEach').findChildren('span')[2].string)
 			assists = float(champ_data.find(class_='KDAEach').findChildren('span')[4].string)
 			cs = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split(' ')[1])
-			csmedian = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
+			csmin = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
 
 			cells = champs_more_data[index].find_all(class_='Value Cell')
 			
@@ -94,7 +94,7 @@ def getData(players_get, singleMode):
 			penta_kills = get_multiple_kills(cells, 5)
 
 			champs.append(buildChamp(name=name_champ, image=image_champ, games=games, winrate=winrate,
-			kda=kda, kills=kills, deaths=deaths, assists=assists, cs=cs, csmedian=csmedian, gold=gold,
+			kda=kda, kills=kills, deaths=deaths, assists=assists, cs=cs, csmin=csmin, gold=gold,
 			max_kills=max_kills, max_deaths=max_deaths, avg_damage_dealt=avg_damage_dealt, avg_damage_taken=avg_damage_taken,
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 
