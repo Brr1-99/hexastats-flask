@@ -46,6 +46,7 @@ def getData(players_get, singleMode):
 		name = realName(player)
 		alias = player
 		image = 'https:' + document.find(class_='ProfileImage')['src']
+		level = int(document.find(class_='ProfileImage').find_next_sibling('span').text)
 
 		try:
 			global_ranking = int(document.find(class_='ranking').string.replace(',',''))
@@ -101,7 +102,7 @@ def getData(players_get, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 
 		# Append data to data object
-		data.append(buildPlayer(name=name, alias=alias, image=image, image_rank=image_rank, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
+		data.append(buildPlayer(name=name, alias=alias, image=image, level=level, image_rank=image_rank, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
 	
 	if singleMode:
 		return json.dumps(data[0])
