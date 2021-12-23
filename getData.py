@@ -50,9 +50,11 @@ def getData(players_get, singleMode):
 		try:
 			global_ranking = int(document.find(class_='ranking').string.replace(',',''))
 			percent_better_players = float(document.find(class_='LadderRank').findChild('a').text.split('\t')[6].split('(')[1].split('%')[0])
+			image_rank = 'https:' + document.find(class_='borderImage')['style'].split('(')[1].split(')')[0]
 		except AttributeError:
-			global_ranking = -1
-			percent_better_players = -1
+			global_ranking = 0
+			percent_better_players = 0
+			image_rank = 0
 
 		rank = document.find(class_='TierRank').string
 
@@ -99,7 +101,7 @@ def getData(players_get, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 
 		# Append data to data object
-		data.append(buildPlayer(name=name, alias=alias, image=image, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
+		data.append(buildPlayer(name=name, alias=alias, image=image, image_rank=image_rank, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
 	
 	if singleMode:
 		return json.dumps(data[0])

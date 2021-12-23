@@ -31,11 +31,12 @@ def buildChamp(name, image, games, winrate, kda, kills, deaths, assists,
 
 
 # Function to create the player data
-def buildPlayer(name, alias, image, rank_n, rank_p, rank, champs):
+def buildPlayer(name, alias, image, image_rank, rank_n, rank_p, rank, champs):
 	return {
 		'name': name,
 		'alias': alias,
 		'image': image,
+		'image_rank': image_rank,
 		'rank_n': rank_n,
 		'rank_p': rank_p,
 		'rank': rank,
