@@ -53,19 +53,21 @@ def getData(players_get, singleMode):
 		image_s = 'https:' + document.find(class_='SummonerRatingMedium').findChildren('div')[0].findChild('img')['src']
 		rank_s = document.find(class_='TierRank').string
 
+
 		if len(rank_s) < 15:
 			lp_s = int(document.find(class_='TierInfo').findChildren('span')[0].text.split('\t')[4].split(' ')[0])
 			win_s = int(document.find(class_='wins').text[:-1])
 			lose_s = int(document.find(class_='losses').text[:-1])
 			winrate_s = int(document.find(class_='winratio').text.split(' ')[-1][:-1])
 		else:
+			rank_s = 'Unranked'
 			lp_s = 0
 			win_s = 0
 			lose_s = 0
 			winrate_s = 0
 
 		image_f = 'https:' + document.find(class_='sub-tier').findChild('img')['src']
-		rank_f = document.find(class_='sub-tier__info').findChildren('div')[1].text.split('\t')[0].replace(' ','').split('\n')[1]
+		rank_f = document.find(class_='sub-tier__info').findChildren('div')[1].string.replace('  ','').split('\n')[1]
 
 		if rank_f != 'Unranked':
 			lp_f = int(document.find(class_='sub-tier__league-point').text.split('/')[0][:-2])
@@ -126,8 +128,8 @@ def getData(players_get, singleMode):
 
 		# Append data to data object
 		data.append(buildPlayer(name=name, alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
-		image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
-		image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs))
+		rank_s=rank_s, image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
+		rank_f=rank_f, image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs))
 	
 	if singleMode:
 		return json.dumps(data[0])

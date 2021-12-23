@@ -56,11 +56,13 @@ def buildPlayer(
 	level: int,
 	rank_n: int,
 	rank_p: int,
+	rank_s: str,
 	image_s : str,
 	lp_s : int,
 	win_s: int,
 	lose_s: int,
 	winrate_s: int,
+	rank_f: str,
 	image_f : str,
 	lp_f : int,
 	win_f: int,
@@ -77,6 +79,7 @@ def buildPlayer(
 			'rank_n': rank_n,
 			'rank_p': rank_p,
 			'solo':{
+				'rank': rank_s,
 				'image': image_s,
 				'lp': lp_s,
 				'win': win_s,
@@ -84,6 +87,7 @@ def buildPlayer(
 				'winrate': winrate_s
 			},
 			'flex':{
+				'rank': rank_f,
 				'image': image_f,
 				'lp': lp_f,
 				'win': win_f,
