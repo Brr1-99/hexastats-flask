@@ -20,7 +20,7 @@ def get_multiple_kills(doc,x):
 	return result
 
 # Function to extract the data from the page to the dictionary
-def getData(players_get):
+def getData(players_get, singleMode):
 	base_url = {
 		'home': "https://euw.op.gg/summoner/userName=",
 		'champions': "https://euw.op.gg/summoner/champions/userName="
@@ -101,4 +101,7 @@ def getData(players_get):
 		# Append data to data object
 		data.append(buildPlayer(name=name, alias=alias, image=image, rank_n=global_ranking, rank_p=percent_better_players, rank=rank, champs=champs))
 	
-	return json.dumps(data)
+	if singleMode:
+		return json.dumps(data)
+	else:
+		return json.dumps(data[0])
