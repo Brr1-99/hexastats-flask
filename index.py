@@ -6,11 +6,16 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    try:
-        #?players=Bruno
-        players = request.args.get('players')
-        players = players.split(',')
-    except AttributeError:
-        players = []
-    gamers = getData(players)
-    return gamers
+	players = []
+	try:
+		#?players=Bruno
+		players = request.args.get('players')
+		if len(players) < 3:
+			players = []
+		elif players[-1] == ',':
+			players = players[:-1]
+		players = players.split(',')
+	except (AttributeError , IndexError , TypeError):
+		players = []
+	gamers = getData(players)
+	return gamers
