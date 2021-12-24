@@ -8,8 +8,8 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def home():
 	try:
-		# singleMode: ?players=Bruno
-		# multiMode: ?players=Bruno,Alex
+		# singleMode: ?players=Bruno&server=euw
+		# multiMode: ?players=Bruno,Alex&server=euw
 		players = request.args.get('players')
 		server = request.args.get('server')
 
