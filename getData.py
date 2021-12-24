@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 from requests.models import LocationParseError
 from interfaces import buildChamp, buildPlayer
-from whitelist import realName
+from whitelist import realName, validate_server
 	
 
 # Headers to avoid bot protection
@@ -20,26 +20,26 @@ def get_multiple_kills(doc,x):
 		result = 0
 	return result
 
-# Function to extract the data from the page to the dictionary
-def getData(players_get, singleMode):
+# Function to extract the data from the pages to the dictionary
+def getData(players_get, server, singleMode):
 	base_url = {
-		'home': "https://euw.op.gg/summoner/userName=",
-		'champions': "https://euw.op.gg/summoner/champions/userName="
+		'home': ".op.gg/summoner/userName=",
+		'champions': ".op.gg/summoner/champions/userName="
 	}
 	# Data returned
 	data = []
-
+	ok_server = validate_server(server)
 	# Players
 	for player in players_get:
 		
 		# TODO try catch por si te pasan un jugador que no existe
 
 		# Fetch OPGG data for a player
-		opgg = base_url['home'] + player
+		opgg = "https://"+ ok_server + base_url['home'] + player
 		result = requests.get(opgg, headers=headers).text
 		document = BeautifulSoup(result, 'html.parser')
 
-		champions = base_url['champions'] + player
+		champions = "https://"+ ok_server + base_url['champions'] + player
 		result2 = requests.get(champions, headers=headers).text
 		document2 = BeautifulSoup(result2, 'html.parser')
 

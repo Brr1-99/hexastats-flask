@@ -5,13 +5,14 @@ import json
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def home():
 	try:
 		# singleMode: ?players=Bruno
 		# multiMode: ?players=Bruno,Alex
 		players = request.args.get('players')
-		
+		server = request.args.get('server')
+
 		# Probably not correct data
 		if len(players) < 3:
 			players = []
@@ -27,5 +28,5 @@ def home():
 	except (AttributeError , IndexError , TypeError):
 		return json.dumps([])
 	# Everything went ok: process the data
-	gamers = getData(players, singleMode)
+	gamers = getData(players, server, singleMode)
 	return gamers
