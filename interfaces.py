@@ -47,6 +47,18 @@ def buildChamp(
 		'penta_kills' : penta_kills
 	}
 
+# Function to create the masteries data
+
+def buildmastery(
+	name: str,
+	level: int,
+	points: int
+	):
+	return {
+		'name': name,
+		'level': level,
+		'points': points,
+	}
 
 # Function to create the player data
 def buildPlayer(
@@ -62,13 +74,15 @@ def buildPlayer(
 	win_s: int,
 	lose_s: int,
 	winrate_s: int,
+	number_s: int,
 	rank_f: str,
 	image_f : str,
 	lp_f : int,
 	win_f: int,
 	lose_f: int,
 	winrate_f: int,
-	champs: dict
+	champs: dict,
+	masteries: dict
 	):
 	return {
 		'name': name,
@@ -84,7 +98,8 @@ def buildPlayer(
 				'lp': lp_s,
 				'win': win_s,
 				'lose': lose_s,
-				'winrate': winrate_s
+				'winrate': winrate_s,
+				'number': number_s
 			},
 			'flex':{
 				'rank': rank_f,
@@ -98,4 +113,5 @@ def buildPlayer(
 		},
 		
 		'champs': champs,
+		'masteries':masteries,
 	}
