@@ -46,10 +46,6 @@ def getData(players_get, server, singleMode):
 		result2 = requests.get(champions, headers=headers).text
 		document2 = BeautifulSoup(result2, 'html.parser')
 
-		league = "https://"+ ok_server + base_url['league'] + player
-		result3 = requests.get(league, headers=headers).text
-		document3 = BeautifulSoup(result3, 'html.parser')
-
 		mastery = "https://" + base_url['mastery1'] + ok_server + base_url['mastery2'] + player
 		result4= requests.get(mastery, headers=headers).text
 		document4 = BeautifulSoup(result4,'html.parser')
@@ -69,14 +65,12 @@ def getData(players_get, server, singleMode):
 			win_s = int(document.find(class_='wins').text[:-1])
 			lose_s = int(document.find(class_='losses').text[:-1])
 			winrate_s = int(document.find(class_='winratio').text.split(' ')[-1][:-1])
-			number_s = int(document3.find(class_='Row me').findChild('td').text)
 		else:
 			rank_s = 'Unranked'
 			lp_s = 0
 			win_s = 0
 			lose_s = 0
 			winrate_s = 0
-			number_s = 0
 
 		image_f = 'https:' + document.find(class_='sub-tier').findChild('img')['src']
 		rank_f = document.find(class_='sub-tier__info').findChildren('div')[1].string.replace('  ','').split('\n')[1]
@@ -158,7 +152,7 @@ def getData(players_get, server, singleMode):
 
 		# Append data to data object
 		data.append(buildPlayer(name=name, alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
-		rank_s=rank_s, image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s, number_s= number_s,
+		rank_s=rank_s, image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
 		rank_f=rank_f, image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs, masteries=masteries))
 	
 	if singleMode:
