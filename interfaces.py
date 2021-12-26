@@ -74,7 +74,6 @@ def buildPlayer(
 	win_s: int,
 	lose_s: int,
 	winrate_s: int,
-	number_s: int,
 	rank_f: str,
 	image_f : str,
 	lp_f : int,
@@ -92,7 +91,6 @@ def buildPlayer(
 		'rank':{
 			'rank_n': rank_n,
 			'rank_p': rank_p,
-			'number': number_s,
 			'solo':{
 				'rank': rank_s,
 				'image': image_s,
