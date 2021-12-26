@@ -47,8 +47,8 @@ def getData(players_get, server, singleMode):
 		document2 = BeautifulSoup(result2, 'html.parser')
 
 		mastery = "https://" + base_url['mastery1'] + ok_server + base_url['mastery2'] + player
-		result4= requests.get(mastery, headers=headers).text
-		document4 = BeautifulSoup(result4,'html.parser')
+		result3= requests.get(mastery, headers=headers).text
+		document3 = BeautifulSoup(result3,'html.parser')
 
 		# Fetch player data
 		name = realName(player)
@@ -132,7 +132,7 @@ def getData(players_get, server, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 		
 		# Fetch for highest mastery champions
-		firstchamp = document4.find(class_='row dataview-content').findChild('div')
+		firstchamp = document3.find(class_='row dataview-content').findChild('div')
 		champs_m =  firstchamp.find_next_siblings('div',limit=6)
 		
 		name_m = firstchamp.find(class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
