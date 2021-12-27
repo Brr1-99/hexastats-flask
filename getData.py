@@ -25,7 +25,6 @@ def getData(players_get, server, singleMode):
 	base_url = {
 		'home': ".op.gg/summoner/userName=",
 		'champions': ".op.gg/summoner/champions/userName=",
-		'league': ".op.gg/summoner/league/userName=",
 		'mastery1': "lol.estiah.com/?region=",
 		'mastery2': '&name='
 	}
@@ -50,11 +49,18 @@ def getData(players_get, server, singleMode):
 		result3= requests.get(mastery, headers=headers).text
 		document3 = BeautifulSoup(result3,'html.parser')
 
-		# Fetch player data
+		# Fetch profile data
 		name = realName(player)
 		alias = player
 		image = 'https:' + document.find(class_='ProfileImage')['src']
 		level = int(document.find(class_='ProfileImage').find_next_sibling('span').text)
+
+		# Fetch recent games stats
+		# record = document.find(class_='WinRatioTitle').findChildren('span')
+		# matches = record[0].text
+		# wins = record[1].text
+		# loses = record[2].text
+
 
 		# Fetch solo/duo data 
 		image_s = 'https:' + document.find(class_='SummonerRatingMedium').findChildren('div')[0].findChild('img')['src']
