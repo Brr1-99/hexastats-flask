@@ -56,10 +56,10 @@ def getData(players_get, server, singleMode):
 		level = int(document.find(class_='ProfileImage').find_next_sibling('span').text)
 
 		# Fetch recent games stats
-		record = document.find(class_='WinRatioTitle').findChildren('span')
-		matches = record[0].text
-		wins = record[1].text
-		loses = record[2].text
+		# record = document.find(class_='WinRatioTitle').findChildren('span')
+		# matches = record[0].text
+		# wins = record[1].text
+		# loses = record[2].text
 
 
 		# Fetch solo/duo data 
