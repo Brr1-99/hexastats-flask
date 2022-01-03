@@ -51,11 +51,13 @@ def buildChamp(
 
 def buildmastery(
 	name: str,
+	image: str,
 	level: int,
 	points: int
 	):
 	return {
 		'name': name,
+		'image': image,
 		'level': level,
 		'points': points,
 	}
