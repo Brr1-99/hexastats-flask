@@ -51,6 +51,7 @@ interface Champ {
 
 interface Mastery {
 	name: string
+	image: string
 	level: number
 	points: number
 }
