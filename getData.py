@@ -78,7 +78,7 @@ def getData(players_get, server, singleMode):
 			lose_s = 0
 			winrate_s = 0
 
-		image_f = 'https:' + document.find('img', class_='sub-tier').findChild('img')['src']
+		image_f = 'https:' + document.find('div', class_='sub-tier').findChild('img')['src']
 		rank_f = document.find('div', class_='sub-tier__info').findChildren('div')[1].string.replace('  ','').split('\n')[1]
 
 		if rank_f != 'Unranked':
