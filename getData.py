@@ -52,8 +52,8 @@ def getData(players_get, server, singleMode):
 		# Fetch profile data
 		name = realName(player)
 		alias = player
-		image = 'https:' + document.find(class_='ProfileImage')['src']
-		level = int(document.find(class_='ProfileImage').find_next_sibling('span').text)
+		image = 'https:' + document.find('img', class_='ProfileImage')['src']
+		level = int(document.find('img', class_='ProfileImage').find_next_sibling('span').text)
 
 		# Fetch recent games stats
 		# record = document.find(class_='WinRatioTitle').findChildren('span')
@@ -63,14 +63,14 @@ def getData(players_get, server, singleMode):
 
 
 		# Fetch solo/duo data 
-		image_s = 'https:' + document.find(class_='SummonerRatingMedium').findChildren('div')[0].findChild('img')['src']
-		rank_s = document.find(class_='TierRank').string
+		image_s = 'https:' + document.find('div', class_='SummonerRatingMedium').findChildren('div')[0].findChild('img')['src']
+		rank_s = document.find('div', class_='TierRank').string
 
 		if len(rank_s) < 15:
-			lp_s = int(document.find(class_='TierInfo').findChildren('span')[0].text.split('\t')[4].split(' ')[0])
-			win_s = int(document.find(class_='wins').text[:-1])
-			lose_s = int(document.find(class_='losses').text[:-1])
-			winrate_s = int(document.find(class_='winratio').text.split(' ')[-1][:-1])
+			lp_s = int(document.find('div', class_='TierInfo').findChildren('span')[0].text.split('\t')[4].split(' ')[0])
+			win_s = int(document.find('span', class_='wins').text[:-1])
+			lose_s = int(document.find('span', class_='losses').text[:-1])
+			winrate_s = int(document.find('span', class_='winratio').text.split(' ')[-1][:-1])
 		else:
 			rank_s = 'Unranked'
 			lp_s = 0
@@ -78,15 +78,15 @@ def getData(players_get, server, singleMode):
 			lose_s = 0
 			winrate_s = 0
 
-		image_f = 'https:' + document.find(class_='sub-tier').findChild('img')['src']
-		rank_f = document.find(class_='sub-tier__info').findChildren('div')[1].string.replace('  ','').split('\n')[1]
+		image_f = 'https:' + document.find('img', class_='sub-tier').findChild('img')['src']
+		rank_f = document.find('div', class_='sub-tier__info').findChildren('div')[1].string.replace('  ','').split('\n')[1]
 
 		if rank_f != 'Unranked':
-			lp_f = int(document.find(class_='sub-tier__league-point').text.split('/')[0][:-2])
-			ratio_f = document.find(class_='sub-tier__league-point').text.split('/')[1].split(' ')
+			lp_f = int(document.find('div', class_='sub-tier__league-point').text.split('/')[0][:-2])
+			ratio_f = document.find('div', class_='sub-tier__league-point').text.split('/')[1].split(' ')
 			win_f = int(ratio_f[1][:-1])
 			lose_f = int(ratio_f[2][:-1])
-			winrate_f = int(document.find(class_='sub-tier__league-point').find_next_sibling('div').text.split('\n')[1].split(' ')[-1][:-1])
+			winrate_f = int(document.find('div', class_='sub-tier__league-point').find_next_sibling('div').text.split('\n')[1].split(' ')[-1][:-1])
 		else:
 			lp_f = 0
 			win_f = 0
@@ -94,31 +94,31 @@ def getData(players_get, server, singleMode):
 			winrate_f = 0
 
 		try:
-			global_ranking = int(document.find(class_='ranking').string.replace(',',''))
-			percent_better_players = float(document.find(class_='LadderRank').findChild('a').text.split('\t')[6].split('(')[1].split('%')[0])
+			global_ranking = int(document.find('span', class_='ranking').string.replace(',',''))
+			percent_better_players = float(document.find('div', class_='LadderRank').findChild('a').text.split('\t')[6].split('(')[1].split('%')[0])
 		except AttributeError:
 			global_ranking = 0
 			percent_better_players = 0
 		
-		champs_more_data = document2.find_all(class_='Row TopRanker')
+		champs_more_data = document2.find_all('tr', class_='Row TopRanker')
 	
 		champs = []
 
 		# Fetch champions data
-		champs_data = document.find_all(class_='ChampionBox Ranked')
+		champs_data = document.find_all('div', class_='ChampionBox Ranked')
 		for index,champ_data in enumerate(champs_data):
-			name_champ = champ_data.find(class_='Face')['title']
+			name_champ = champ_data.find('div', class_='Face')['title']
 			image_champ = 'https:' + str(champ_data.find('img')['src'])
-			games = int(champ_data.find(class_='Played').findChildren('div')[-1].string.split(' ')[0])
-			winrate = int(champ_data.find(class_='Played').findChildren('div')[0].string.split('\t')[5][:-2])
-			kda = float(champ_data.find(class_='PersonalKDA').findChildren('span')[0].string.split(':')[0])
-			kills = float(champ_data.find(class_='KDAEach').findChildren('span')[0].string)
-			deaths = float(champ_data.find(class_='KDAEach').findChildren('span')[2].string)
-			assists = float(champ_data.find(class_='KDAEach').findChildren('span')[4].string)
-			cs = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split(' ')[1])
-			csmin = float(champ_data.find(class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
+			games = int(champ_data.find('div', class_='Played').findChildren('div')[-1].string.split(' ')[0])
+			winrate = int(champ_data.find('div', class_='Played').findChildren('div')[0].string.split('\t')[5][:-2])
+			kda = float(champ_data.find('div', class_='PersonalKDA').findChildren('span')[0].string.split(':')[0])
+			kills = float(champ_data.find('div', class_='KDAEach').findChildren('span')[0].string)
+			deaths = float(champ_data.find('div', class_='KDAEach').findChildren('span')[2].string)
+			assists = float(champ_data.find('div', class_='KDAEach').findChildren('span')[4].string)
+			cs = float(champ_data.find('div', class_='ChampionInfo').findChildren('div')[-1].string.split(' ')[1])
+			csmin = float(champ_data.find('div', class_='ChampionInfo').findChildren('div')[-1].string.split('\t')[9].split('(')[1].split(')')[0])
 
-			cells = champs_more_data[index].find_all(class_='Value Cell')
+			cells = champs_more_data[index].find_all('td', class_='Value Cell')
 			
 			gold = int(cells[0].string.split('\t')[5][:-1].replace(',',''))
 			max_kills = int(cells[2].string.split('\t')[6][:-1])
@@ -138,10 +138,10 @@ def getData(players_get, server, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 		
 		# Fetch for highest mastery champions
-		firstchamp = document3.find(class_='row dataview-content').findChild('div')
+		firstchamp = document3.find('div', class_='row dataview-content').findChild('div')
 		champs_m =  firstchamp.find_next_siblings('div',limit=6)
 		
-		name_m = firstchamp.find(class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
+		name_m = firstchamp.find('div', class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
 		image_m = firstchamp.find('img', class_='champion')['src']
 		nivel = int(firstchamp['class'][2].split('-')[-1])
 		puntos = int(firstchamp.findChild('div',class_='avatar')['title'].split(' ')[1])
@@ -151,7 +151,7 @@ def getData(players_get, server, singleMode):
 		masteries.append(buildmastery(name=name_m, image=image_m, level=nivel, points=puntos))
 
 		for champ_m in champs_m:
-			name_m = champ_m.find(class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
+			name_m = champ_m.find('div', class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
 			image_m = champ_m.find('img', class_='champion')['src']
 			nivel = int(champ_m['class'][2].split('-')[-1])
 			puntos = int(champ_m.findChild('div',class_='avatar')['title'].split(' ')[1])
