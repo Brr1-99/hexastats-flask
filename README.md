@@ -4,7 +4,7 @@
   </span><img src="https://img.shields.io/badge/made%20with-python-blue" /><span> <img src="https://img.shields.io/badge/made%20with-flask-white" /><span> </span><img src="https://img.shields.io/badge/made%20with-beautifulsoup4-green" />
 </div>
 
-Flask app. Scrapes [op.gg](https://www.op.gg/) with BS4 to fetch stats and data about League of Legends players and serves it as a JSON through a web API. 
+Flask app. Scrapes [op.gg](https://www.op.gg/) and [lol.estiah](https://www.https://lol.estiah.com/) with BS4 to fetch stats and data about League of Legends players and serves it as a JSON through a web API. 
 
 
 
