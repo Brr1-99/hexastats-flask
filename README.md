@@ -40,6 +40,7 @@ This is a backend made for our [Dawichi/hexastats](https://github.com/Dawichi/he
 #### GET: Multiple player data 
 
 ````python
+# NOTE: trailing commas and spaces between names in GET param allowed
 ?players=<name1>,<name2>
 ?players=<name1>,<name2>,
 ?players=<name1>, <name2>
@@ -51,14 +52,31 @@ This is a backend made for our [Dawichi/hexastats](https://github.com/Dawichi/he
     {player2.data},
     {player3.data}
 ]
+````
 
-# NOTE: trailing commas and spaces between names in GET param allowed
+
+
+
+#### GET: Specific server
+
+If you want to search for a player in a specific server (euw, kr, etc...) just add a `server=` param 
+
+````python
+?players=<name1>&server=euw
+?players=<name1>,<name2>,&server=euw
+
+# Example: ?players=David ,Alex, Cristian,&server=euw
+# returns JSON: 
+[
+    {player1.data},
+    {player2.data},
+    {player3.data}
+]
 ````
 
 
 
 ![showcase](./showcase.png)
-
 
 
 
