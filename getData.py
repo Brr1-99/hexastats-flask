@@ -45,7 +45,7 @@ def getData(players_get, server, singleMode):
 		result2 = requests.get(champions, headers=headers).text
 		document2 = BeautifulSoup(result2, 'html.parser')
 
-		mastery = "https://" + base_url['mastery1'] + ok_server + base_url['mastery2'] + player
+		mastery = "https://" + base_url['mastery1'] + (ok_server if ok_server!= 'www' else 'kr') + base_url['mastery2'] + player
 		result3= requests.get(mastery, headers=headers).text
 		document3 = BeautifulSoup(result3,'html.parser')
 
@@ -111,7 +111,10 @@ def getData(players_get, server, singleMode):
 			image_champ = 'https:' + str(champ_data.find('img')['src'])
 			games = int(champ_data.find('div', class_='Played').findChildren('div')[-1].string.split(' ')[0])
 			winrate = int(champ_data.find('div', class_='Played').findChildren('div')[0].string.split('\t')[5][:-2])
-			kda = float(champ_data.find('div', class_='PersonalKDA').findChildren('span')[0].string.split(':')[0])
+			try:
+				kda = float(champ_data.find('div', class_='PersonalKDA').findChildren('span')[0].string.split(':')[0])
+			except ValueError:
+				kda = 100
 			kills = float(champ_data.find('div', class_='KDAEach').findChildren('span')[0].string)
 			deaths = float(champ_data.find('div', class_='KDAEach').findChildren('span')[2].string)
 			assists = float(champ_data.find('div', class_='KDAEach').findChildren('span')[4].string)
@@ -138,6 +141,7 @@ def getData(players_get, server, singleMode):
 			double_kills=double_kills, triple_kills=triple_kills, quadra_kills=quadra_kills, penta_kills=penta_kills))
 		
 		# Fetch for highest mastery champions
+
 		firstchamp = document3.find('div', class_='row dataview-content').findChild('div')
 		champs_m =  firstchamp.find_next_siblings('div',limit=6)
 		
