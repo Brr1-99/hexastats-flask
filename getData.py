@@ -50,7 +50,7 @@ def getData(players_get, server, singleMode):
 			document3 = BeautifulSoup(result3,'html.parser')
 
 			# Fetch profile data
-			name = realName(player)
+			# name = realName(player)
 			alias = player
 			image = 'https:' + document.find('img', class_='ProfileImage')['src']
 			level = int(document.find('img', class_='ProfileImage').find_next_sibling('span').text)
@@ -163,7 +163,8 @@ def getData(players_get, server, singleMode):
 				masteries.append(buildmastery(name=name_m, image=image_m, level=nivel, points=puntos))
 
 			# Append data to data object
-			data.append(buildPlayer(name=name, alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
+			data.append(buildPlayer(#name=name, 
+			alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
 			rank_s=rank_s, image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
 			rank_f=rank_f, image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs, masteries=masteries))
 		except:

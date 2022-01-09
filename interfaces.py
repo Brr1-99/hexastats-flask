@@ -64,7 +64,7 @@ def buildmastery(
 
 # Function to create the player data
 def buildPlayer(
-	name: str,
+	# name: str,
 	alias: str,
 	image: str,
 	level: int,
@@ -86,7 +86,7 @@ def buildPlayer(
 	masteries: dict
 	):
 	return {
-		'name': name,
+		# 'name': name,
 		'alias': alias,
 		'image': image,
 		'level': level,
