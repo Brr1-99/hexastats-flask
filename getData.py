@@ -152,7 +152,7 @@ def getData(players_get, server, singleMode):
 
 			masteries = []
 
-			masteries.append(buildmastery(name=name_m, image=image_m, level=nivel, points=puntos))
+			masteries.append(buildmastery(name=name_m, image='https:'+ image_m, level=nivel, points=puntos))
 
 			for champ_m in champs_m:
 				name_m = champ_m.find('div', class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
@@ -164,7 +164,7 @@ def getData(players_get, server, singleMode):
 
 			# Append data to data object
 			data.append(buildPlayer(#name=name, 
-			alias=alias, image=image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
+			alias=alias, image='https:'+image, level=level, rank_n=global_ranking, rank_p=percent_better_players,
 			rank_s=rank_s, image_s=image_s, lp_s=lp_s, win_s=win_s, lose_s=lose_s, winrate_s=winrate_s,
 			rank_f=rank_f, image_f=image_f, lp_f=lp_f, win_f=win_f, lose_f=lose_f, winrate_f=winrate_f, champs=champs, masteries=masteries))
 		except:
