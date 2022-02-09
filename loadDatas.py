@@ -11,6 +11,27 @@ def get_multiple_kills(doc,x):
 		result = 0
 	return result
 
+def get_ranked_data(doc, mode):
+	image = doc.find_all('div', class_='medal')[mode].findChild('img')['src']
+	try :
+		rank = doc.find_all('div', class_='tier-rank')[mode].text
+	except IndexError:
+		rank = 'Unranked'
+
+	if rank != 'Unranked':
+		lp = int(doc.find_all('div', class_='tier-info')[mode].findChild('span').text.split(' ')[0])
+		win = int(doc.find_all('span', class_='win-lose')[mode].text.split(' ')[0][:-1])
+		lose = int(doc.find_all('span', class_='win-lose')[mode].text.split(' ')[1][:-4])
+		winrate = int(doc.find_all('span', class_='win-lose')[mode].text.split(' ')[-1][:-1])
+	else:
+		rank = 'Unranked'
+		lp = 0
+		win = 0
+		lose = 0
+		winrate = 0
+	
+	return image, rank, lp, win, lose, winrate
+
 def loadData(ok_server, headers, player):
 	data = []
 	# Fetch OPGG data for a player
@@ -38,42 +59,7 @@ def loadData(ok_server, headers, player):
 
 
 	# Fetch solo/duo data 
-	image_s = document.find_all('div', class_='medal')[0].findChild('img')['src']
-	try :
-		rank_s = document.find_all('div', class_='tier-rank')[0].text
-	except IndexError:
-		rank_s = 'Unranked'
-
-	if rank_s != 'Unranked':
-		lp_s = int(document.find_all('div', class_='tier-info')[0].findChild('span').text.split(' ')[0])
-		win_s = int(document.find_all('span', class_='win-lose')[0].text.split(' ')[0][:-1])
-		lose_s = int(document.find_all('span', class_='win-lose')[0].text.split(' ')[1][:-4])
-		winrate_s = int(document.find_all('span', class_='win-lose')[0].text.split(' ')[-1][:-1])
-	else:
-		rank_s = 'Unranked'
-		lp_s = 0
-		win_s = 0
-		lose_s = 0
-		winrate_s = 0
-
-	# Fetch flex data 
-	image_f = document.find_all('div', class_='medal')[1].findChild('img')['src']
-	try:
-		rank_f = document.find_all('div', class_='tier-rank')[1].text
-	except IndexError:
-		rank_f = 'Unranked'
-
-	if rank_f != 'Unranked':
-		lp_f = int(document.find_all('div', class_='tier-info')[-1].findChild('span').text.split(' ')[0])
-		win_f= int(document.find_all('span', class_='win-lose')[-1].text.split(' ')[0][:-1])
-		lose_f = int(document.find_all('span', class_='win-lose')[-1].text.split(' ')[1][:-4])
-		winrate_f = int(document.find_all('span', class_='win-lose')[-1].text.split(' ')[-1][:-1])
-
-	else:
-		lp_f = 0
-		win_f = 0
-		lose_f = 0
-		winrate_f = 0
+	image_s, rank_s, lp_s, win_s, lose_s, winrate_s = get_ranked_data(document, 0)
 
 	try:
 		global_ranking = int(document.find('span', class_='ranking').string.replace(',',''))
@@ -82,7 +68,10 @@ def loadData(ok_server, headers, player):
 	except AttributeError:
 		global_ranking = 0
 		percent_better_players = 0
-	
+
+	# Fetch flex data 
+	image_f, rank_f, lp_f, win_f, lose_f, winrate_f = get_ranked_data(document, 1)
+
 	champs_more_data = document2.find_all('tr')[1:]
 
 	champs = []
