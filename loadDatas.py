@@ -38,10 +38,13 @@ def loadData(ok_server, headers, player):
 
 
 	# Fetch solo/duo data 
-	image_s = document.find('div', class_='medal').findChildren('div')[0].findChild('img')['src']
-	rank_s = document.find('div', class_='tier-rank').text
+	image_s = document.find_all('div', class_='medal')[0].findChild('img')['src']
+	try :
+		rank_s = document.find_all('div', class_='tier-rank')[0].text
+	except IndexError:
+		rank_s = 'Unranked'
 
-	if len(rank_s) < 15:
+	if rank_s != 'Unranked':
 		lp_s = int(document.find_all('div', class_='tier-info')[0].findChild('span').text.split(' ')[0])
 		win_s = int(document.find_all('span', class_='win-lose')[0].text.split(' ')[0][:-1])
 		lose_s = int(document.find_all('span', class_='win-lose')[0].text.split(' ')[1][:-4])
@@ -53,8 +56,12 @@ def loadData(ok_server, headers, player):
 		lose_s = 0
 		winrate_s = 0
 
-	image_f = document.find('div', class_='css-rxctzc e1x14w4w1').findChild('img')['src']
-	rank_f = document.find_all('div', class_='tier-rank')[1].text
+	# Fetch flex data 
+	image_f = document.find_all('div', class_='medal')[1].findChild('img')['src']
+	try:
+		rank_f = document.find_all('div', class_='tier-rank')[1].text
+	except IndexError:
+		rank_f = 'Unranked'
 
 	if rank_f != 'Unranked':
 		lp_f = int(document.find_all('div', class_='tier-info')[-1].findChild('span').text.split(' ')[0])
@@ -94,6 +101,7 @@ def loadData(ok_server, headers, player):
 		kills = float(champ_data.find('div', class_='detail').text.split('/')[0])
 		deaths = float(champ_data.find('div', class_='detail').text.split('/')[1])
 		assists = float(champ_data.find('div', class_='detail').text.split('/')[2])
+
 		cs = float(champ_data.find('div', class_='cs').text.split(' ')[1])
 		csmin = float(champ_data.find('div', class_='cs').text.split('(')[-1].split(')')[0])
 
