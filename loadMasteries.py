@@ -10,9 +10,10 @@ def loadmastery(ok_server, player, headers):
 		document3 = BeautifulSoup(result3,'html.parser')
 
 		firstchamp = document3.find('div', class_='row dataview-content').findChild('div')
+
 		champs_m =  firstchamp.find_next_siblings('div',limit=6)
 		
-		name_m = firstchamp.find('div', class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
+		name_m = firstchamp.find('div', class_='name').text.split('\n')[1].replace('  ', '')
 		image_m = firstchamp.find('img', class_='champion')['src']
 		nivel = int(firstchamp['class'][2].split('-')[-1])
 		puntos = int(firstchamp.findChild('div',class_='avatar')['title'].split(' ')[1])
@@ -22,7 +23,7 @@ def loadmastery(ok_server, player, headers):
 		masteries.append(buildmastery(name=name_m, image='https:'+ image_m, level=nivel, points=puntos))
 
 		for champ_m in champs_m:
-			name_m = champ_m.find('div', class_='name').text.split('\r')[1].split('\n')[-1].replace('  ', '')
+			name_m = champ_m.find('div', class_='name').text.split('\n')[1].replace('  ', '')
 			image_m = champ_m.find('img', class_='champion')['src']
 			nivel = int(champ_m['class'][2].split('-')[-1])
 			puntos = int(champ_m.findChild('div',class_='avatar')['title'].split(' ')[1])
