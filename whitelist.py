@@ -1,6 +1,6 @@
 # whitelist
 
-def realName(alias) :
+def realName(alias: str) -> str:
 	players = {
 		'alexwwe': 'Alex',
 		'Brr1': 'Bruno',
@@ -20,7 +20,7 @@ def realName(alias) :
 	except KeyError:
 		return alias
 
-def validate_server(server):
+def validate_server(server: str) -> str:
 	servers = ['euw', 'lan', 'las', 'na','eune', 'tr', 'oce', 'ru', 'jp', 'br']
 	if server == 'kr':
 		return 'www'

@@ -1,17 +1,17 @@
 import requests
 from interfaces import buildChamp,buildPlayer
 from loadMasteries import loadmastery
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, ResultSet
 
 # Function to factor the extraction of multiple kills data
-def get_multiple_kills(doc,x):
+def get_multiple_kills(doc: ResultSet, x: int) -> int:
 	try:
 		result = int(doc[x+5].text)
 	except:
 		result = 0
 	return result
 
-def get_ranked_data(doc, mode):
+def get_ranked_data(doc: ResultSet, mode: str) -> tuple[str & int]:
 	image = doc.find_all('div', class_='medal')[mode].findChild('img')['src']
 	try :
 		rank = doc.find_all('div', class_='tier-rank')[mode].text
@@ -32,7 +32,7 @@ def get_ranked_data(doc, mode):
 	
 	return image, rank, lp, win, lose, winrate
 
-def loadData(ok_server, headers, player):
+def loadData(ok_server: str, headers: str, player: str) -> buildPlayer:
 	data = []
 	# Fetch OPGG data for a player
 	opgg = "https://"+ ok_server + '.op.gg/summoner/userName=' + player

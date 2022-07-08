@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from interfaces import buildmastery
 
 
-def loadmastery(ok_server, player, headers):
+def loadmastery(ok_server: int, player: int, headers: int) -> list[dict]:
 	try:
 		mastery = "https://lol.estiah.com/?region=" + (ok_server if ok_server!= 'www' else 'kr') + '&name=' + player
 		result3= requests.get(mastery, headers=headers).text

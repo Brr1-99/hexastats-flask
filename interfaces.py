@@ -24,7 +24,7 @@ def buildChamp(
 	triple_kills: int,
 	quadra_kills: int,
 	penta_kills: int
-	):
+	) -> dict:
 	return {
 		'name': name,
 		'image': image,
@@ -54,7 +54,7 @@ def buildmastery(
 	image: str,
 	level: int,
 	points: int
-	):
+	) -> dict:
 	return {
 		'name': name,
 		'image': image,
@@ -84,7 +84,7 @@ def buildPlayer(
 	winrate_f: int,
 	champs: dict,
 	masteries: dict
-	):
+	) -> dict:
 	return {
 		# 'name': name,
 		'alias': alias,

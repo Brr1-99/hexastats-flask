@@ -15,7 +15,7 @@ headers.update({
 })
 
 # Function to extract the data from the pages to the dictionary
-def getData(players_get, server, singleMode):
+def getData(players_get: list[str], server: str, singleMode: bool) -> json:
 	# Data returned
 	data = []
 	ok_server = validate_server(server)
