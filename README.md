@@ -1,3 +1,5 @@
+League of Legends stats visualization tool backend. 
+
 <h1 align="center">Hexastats</h1>
 
 <div align="center">
